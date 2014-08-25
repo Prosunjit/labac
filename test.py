@@ -24,5 +24,25 @@ def complext_test():
 	print lbac.acl
 	print lbac.request(user="u1",object="o6",action="read")	
 
+
+def simple_test_case():
+	conf = Configuration()
+
+	user_hierarchy = [ ("manager",["employee"]), ("employee",["stuff"]) ]
+
+	object_hierarchy = [ ("secret", ["public"]), ("confidential",["public"]) ]
+
+	conf.object_label_hierarchy = object_hierarchy
+
+	conf.user_label_hierarchy = user_hierarchy
+
+	conf.add_policy("read",[ ("confidential","employee" ) ] )
+	# create LaBAC class with this configuration
+	lbac = LBAC(conf)
+	# now check if 'employee' can read 'confidential'
+	print lbac.request(user='employee', object='confidential', action='read')
+	
+
 if __name__ == "__main__":
-	complext_test()
+	#complext_test()
+	simple_test_case()
