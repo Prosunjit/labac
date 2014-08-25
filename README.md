@@ -40,7 +40,8 @@ conf.user_label_hierarchy = object_hierarchy
 conf.add_policy("read",[ ("confidential","employee" ) ] )
 
 
-To see working script, check the test_simple_case() inside test.py
+To see working script, check the test_simple_case() inside [test.py](test.py)
+
 
 
 
