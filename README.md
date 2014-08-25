@@ -30,11 +30,17 @@ our user_labels are = ['manager', 'employee', 'stuff'] , manager dominate employ
 conf = Configuration()
 
 user_hierarchy = [ ("manager",["employee"], ("employee",["stuff"]) ]
+
 object_hierarchy = [ ("secret", ["public"]), ("confidential",["public"]) ]
 
 conf.object_label_hierarchy = user_hierarchy
+
 conf.user_label_hierarchy = object_hierarchy
+
 conf.add_policy("read",[ ("confidential","employee" ) ] )
+
+
+To see working script, check the test_simple_case() inside test.py
 
 
 
