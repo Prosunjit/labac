@@ -217,9 +217,9 @@ class LabelHierarchy:
 			sys.stdout.write("\n")
 
 	def get_hierarchy(self):
-		print "Junior Lists"
+		#print "Junior Lists"
 		self.print_hierarchy( self.get_junior_labels())
-		print "senior lists"
+		#print "senior lists"
 		self.print_hierarchy(self.get_senior_labels())
 
 class Configuration(object):
@@ -349,7 +349,7 @@ class Setup(object):
 			print e
 
 	def bind_objectLabel_with_userLabel(self):
-		print self.__policy__
+		#print self.__policy__
 		for plcy in iter(self.__policy__):
 			(ol,ul) = plcy
 			#now setup acl with each object.
@@ -426,7 +426,7 @@ class LaBAC(object):
 
 	def request(self,user=None, object=None, action=None):
 		self.setup()
-		print self.__acl__
+		#print self.__acl__
 		#do some validation
 		if user and object and action:
 			# from all acl get the acl for the action
