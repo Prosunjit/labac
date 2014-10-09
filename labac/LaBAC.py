@@ -428,15 +428,67 @@ class LaBAC(object):
 		self.setup()
 		#print self.__acl__
 		#do some validation
+		objects = []
+		users = []
+		object_acl = []
 		if user and object and action:
 			# from all acl get the acl for the action
 			action_acl = self.__acl__[action]
-			# get the acl for the requested object
-			object_acl = action_acl[object]
+			print action_acl
+			# if object is a single object, conver it to one element list.
+
+			if isinstance(user, basestring):
+				user = [user]
+			if isinstance(object, basestring):
+				object = [object]
+
+			objects += object
+			users += user
+			
+			for ob in objects:
+				# get the acl for the requested object
+				print action_acl[ob]
+				object_acl += action_acl[ob]
+			
+
 			# check the requested user_label is in object's acl
-			if user in object_acl:
+			#if user in object_acl:
+			''' checking whether for the given objects, whether its combined acl contains
+				any of the given user_labels.
+				e.g. request(user=[ul1,ul2], object=[ol1,ol2], action=x), 
+				object_acl contains all the user Labels  who can access ol1 or ol2.
+				object_acl can be [ul1,ul3,ul4]. now, I am checking whether whether the
+				set of object_acl and user has some label in common.
+
+			'''
+			if set(users) & set(object_acl): 
 				return True
 			else:
 				return False
 
 
+
+def complex_test():
+	
+	conf = Configuration()
+	conf.object_label_hierarchy = [\
+						("o1",["o2","o3","o4"]),\
+						("o2",["o6","o5"]), \
+						("o7",["o8","o9"])\
+		
+				      ]
+	
+	conf.user_label_hierarchy = [\
+						("u1",["u2","u3"]),\
+						("u2",["u4"])\
+				    ]
+
+	#conf.policy = [ ("o5","u1") ]
+	#conf.add_policy("read",[ ("o1","u3"), ("o5","u3")] )
+	conf.add_policy("read",[("o1","u2"),("o7","u1")])
+	lbac = LaBAC(conf)
+	print lbac.acl
+	print lbac.request(user=["u3","u1"],object=["o4","o7","o8","o9"],action="read")
+
+if __name__ == "__main__":
+	complex_test()
