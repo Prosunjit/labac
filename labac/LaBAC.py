@@ -434,7 +434,7 @@ class LaBAC(object):
 		if user and object and action:
 			# from all acl get the acl for the action
 			action_acl = self.__acl__[action]
-			print action_acl
+			#print action_acl
 			# if object is a single object, conver it to one element list.
 
 			if isinstance(user, basestring):
@@ -447,7 +447,7 @@ class LaBAC(object):
 			
 			for ob in objects:
 				# get the acl for the requested object
-				print action_acl[ob]
+				#print action_acl[ob]
 				object_acl += action_acl[ob]
 			
 
@@ -487,7 +487,7 @@ def complex_test():
 	#conf.add_policy("read",[ ("o1","u3"), ("o5","u3")] )
 	conf.add_policy("read",[("o1","u2"),("o7","u1")])
 	lbac = LaBAC(conf)
-	print lbac.acl
+	#print lbac.acl
 	print lbac.request(user=["u3","u1"],object=["o4","o7","o8","o9"],action="read")
 
 if __name__ == "__main__":
